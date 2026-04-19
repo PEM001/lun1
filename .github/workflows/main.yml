@@ -1,14 +1,12 @@
-    name: Download and Commit EXE (Force Node 24)
+    name: Download and Commit EXE (Updated Checkout)
     on:
       workflow_dispatch:
     jobs:
       download-and-commit:
         runs-on: ubuntu-latest
-        env: # اضافه کردن متغیر محیطی برای اجبار به Node.js 24
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v4 # این نسخه رو نگه می‌داریم چون قراره FORCE کنیم Node 24 رو
+            uses: actions/checkout@v4 # استفاده از آخرین نسخه پایدار
 
           - name: Download Lunacy EXE from URL
             run: curl -L "https://lcdn.icons8.com/setup/beta/LunacySetup.exe" -o LunacySetup.exe
