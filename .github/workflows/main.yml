@@ -1,0 +1,25 @@
+    name: Download and Commit EXE (Manual Token)
+    on:
+      workflow_dispatch:
+    jobs:
+      download-and-commit:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+
+          - name: Download Lunacy EXE from URL
+            run: curl -L "https://lcdn.icons8.com/setup/beta/LunacySetup.exe" -o LunacySetup.exe
+
+          - name: Set up Git configuration
+            run: |
+              git config --local user.email "github-actions[bot]@users.noreply.github.com"
+              git config --local user.name "github-actions[bot]"
+
+          - name: Commit and push the file
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # این قسمت مهمه
+            run: |
+              git add LunacySetup.exe
+              git commit -m "Add LunacySetup.exe from URL"
+              git push origin HEAD:${{ github.ref }} # یا origin main اگر شاخه اصلی شما main هست
